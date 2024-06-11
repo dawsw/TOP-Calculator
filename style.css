@@ -67,14 +67,10 @@ body {
     background-color: rgb(134, 134, 134);
 }
 
-#lower-numbers, #upper-numbers {
+#display-numbers {
     font-size: 48px;
     color: white;
     text-align: right;
     margin: 10px 10px 0px 0px;
 }
 
-#upper-numbers {
-    font-size: 32px;
-    color: black;
-}
