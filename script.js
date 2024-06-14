@@ -12,7 +12,7 @@ const equalButton = document.querySelector("#equalbutton");
 const percentButton = document.querySelector("#percentbutton");
 const plusMinusButton = document.querySelector("#plusminusbutton");
 
-const operatorButtons = [multiplyButton, divideButton, addButton, subtractButton]
+const operatorButtons = [multiplyButton, divideButton, addButton, subtractButton, equalButton]
 const specialButtons = [percentButton, plusMinusButton]
 
 
@@ -28,10 +28,19 @@ function getDisplayNumber() {
 // else if firstNumber != null and secondNumber = null, set secondNumber, operate, display result, set firstNumber = result
 
 
+//operator buttons
 for (let button of operatorButtons) {
     button.addEventListener("click", () => {
         let display = getDisplayNumber();
 
+        if (button.id == "equalbutton") {
+            secondNumber = display;
+            displayNumbers.textContent = operate(selectedOperator, firstNumber, secondNumber);
+            secondNumber = null;
+            
+        }
+
+        //if no first number, set it to display number & set selectedOperator
         if (firstNumber == null) {
             firstNumber = display;
             selectedOperator = button.textContent;
@@ -45,6 +54,7 @@ for (let button of operatorButtons) {
 
         }
 
+        //if there is already a white button, change it back to orange if another is pressed
         for (let button of operatorButtons) {
             if (button.style.backgroundColor == "white") {
                 button.style.backgroundColor = "rgb(155, 103, 6)";
@@ -52,16 +62,31 @@ for (let button of operatorButtons) {
             }
         }
         
-        button.style.color = "orange";
-        button.style.backgroundColor = "white";
+        if (button.id != "equalbutton") {
+            button.style.color = "orange";
+            button.style.backgroundColor = "white";
+        }
+        //for equal button color change
+        else {
+            button.addEventListener("mousedown", () => {
+                button.style.color = "orange";
+                button.style.backgroundColor = "white";
+            })
+
+            button.addEventListener("mouseup", () => {
+                button.style.backgroundColor = "rgb(155, 103, 6)";
+                button.style.color = "white";
+            })
+        }
     });
 }
 
 
 
-let buttons = document.getElementsByName("number");
+//number buttons
+let numberButtons = document.getElementsByName("number");
     
-for (let button of buttons) {
+for (let button of numberButtons) {
     button.addEventListener("click", () => {
 
     let display = document.querySelector("#display-numbers");
@@ -97,43 +122,40 @@ function checkOperatorColor(buttonlist) {
     }
 }
 
+//clear button
+let clearButton = document.querySelector("#clearbutton");
+
+clearButton.addEventListener("click", () => {
+    firstNumber = null;
+    secondNumber = null;
+    selectedOperator = null;
+    displayNumbers.textContent = "0";
+    revertAllOperatorColor(operatorButtons);  
+})
 
 
 
 
 
+//change operator color back to orange after number button pressed
+function revertAllOperatorColor(buttonlist) {
+    for (let button of buttonlist) {
+        button.style.backgroundColor = "rgb(155, 103, 6)";
+        button.style.color = "white";
+    }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+for (let button of specialButtons) {
+    button.addEventListener("click", () => {
+        if (button.id = "percentbutton"){
+            displayNumbers.textContent = percentage(Number(displayNumbers.textContent))
+        } 
+        else {
+            displayNumbers.textContent = plusMinus(Number(displayNumbers.textContent))
+        }
+    });
+}
 
 
 function operate(operator, a, b) {
@@ -172,33 +194,12 @@ function divide(a, b) {
     return a / b;
 }
 
-
-
-    
-
-
-
-//clear button
-function clearDisplayNumbers() {
-    let button = document.getElementById("clearbutton");
-
-    button.addEventListener("click", () => {
-        firstNumber = null;
-        secondNumber = null;
-        selectedOperator = null;
-        displayNumbers.textContent = "0";
-        revertAllOperatorColor(operatorButtons);  
-    });
-
+function percentage(a) {
+    return a / 100;
 }
 
-//change operator color back to orange after number button pressed
-function revertAllOperatorColor(buttonlist) {
-    for (let button of buttonlist) {
-        button.style.backgroundColor = "rgb(155, 103, 6)";
-        button.style.color = "white";
-    }
+function plusMinus(a) {
+    return a * -1;
 }
 
-clearDisplayNumbers();
 
