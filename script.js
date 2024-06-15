@@ -18,11 +18,6 @@ const specialButtons = [percentButton, plusMinusButton]
 
 display.textContent = 0;
 
-//get current display numbers
-function getDisplayNumber() {
-    return Number(document.querySelector("#display-numbers").textContent);
-}
-
 //change operator color back to orange after number button pressed
 function revertAllOperatorColor(buttonlist) {
     for (let button of buttonlist) {
@@ -63,29 +58,49 @@ function operate(operator, a, b) {
 }
 
 function add(a, b) {
-    return a + b;
+    let result = a + b;
+
+    if (result.toString().length > 12) {
+        result = result.toExponential(8).toString().slice(0, 12);
+    }
+    return result;
 }
 
 function subtract(a, b) {
-    return a - b;
+    let result = a - b;
+
+    if (result.toString().length > 12) {
+        result = result.toExponential(8).toString().slice(0, 12);
+    }
+    return result;
 }
 
 function multiply(a, b) {
-    return a * b;
+    let result = a * b;
+
+    if (result.toString().length > 12) {
+        result = result.toExponential(8).toString().slice(0, 12);
+    }
+    return result;
 }
 
 function divide(a, b) {
-    return a / b;
+    let result = a / b;
+
+    if (result.toString().length > 12) {
+        result = result.toExponential(8).toString().slice(0, 12);
+    }
+    return result;
 }
 
 function percentage(a) {
-    return a / 100;
+    let result  = a / 100;
+
+    if (result.toString().length > 12) {
+        result = result.toExponential(8).toString().slice(0, 12);
+    }
+    return result;
 }
-
-
-// for operator button press
-// getDisplayNumber, set firstNumber if firstNumber = null, set selectedOperator
-// else if firstNumber != null and secondNumber = null, set secondNumber, operate, display result, set firstNumber = result
 
 //operator buttons
 for (let button of operatorButtons) {
@@ -147,17 +162,18 @@ for (let button of numberButtons) {
     else if (display.textContent == "-0" && button.textContent != ".") {
         display.textContent = "-";
     }
-
-    //add button text value to first number if no selectedOperator
-    if (selectedOperator == "") {
-        display.textContent += button.textContent;
-        firstNumber += button.textContent;
-    }
-    //else reset display and add button text value to secondNumber
-    else {
-        display.textContent == "";
-        display.textContent += button.textContent;
-        secondNumber += button.textContent;
+    if (display.textContent.length < 12) {
+        //add button text value to first number if no selectedOperator
+        if (selectedOperator == "") {
+            display.textContent += button.textContent;
+            firstNumber += button.textContent;
+        }
+        //else reset display and add button text value to secondNumber
+        else {
+            display.textContent == "";
+            display.textContent += button.textContent;
+            secondNumber += button.textContent;
+        }
     }
 
     revertAllOperatorColor(operatorButtons);
