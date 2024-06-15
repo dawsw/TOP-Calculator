@@ -139,7 +139,7 @@ for (let button of numberButtons) {
     if (checkOperatorColor(operatorButtons) ) {
         display.textContent = "";
     }
-    
+
     //remove 0 if first button clicked is a number
     if (display.textContent == "0" && button.textContent != ".") {
         display.textContent = "";
@@ -225,23 +225,22 @@ for (let button of specialButtons) {
         let displayNumbers = document.querySelector("#display-numbers").textContent;
 
         //plusminus button
-        if (button.id == "plusminusbutton" && secondNumber == "" && displayNumbers.includes("-")){
-            displayNumbers = displayNumbers.replace("-", "")
-            firstNumber = displayNumbers;
+        if (button.id == "plusminusbutton" && display.textContent.includes("-")) {
+            display.textContent = display.textContent.replace("-", "");
+            if (secondNumber == "") firstNumber = display.textContent;
+            else secondNumber = display.textContent;
         }
-        else if (button.id == "plusminusbutton" && firstNumber != ""){
-            display.textContent = `-${display.textContent}`
-            secondNumber = display.textContent;
+        else {
+            if (button.id == "plusminusbutton" && secondNumber == ""){
+                display.textContent = `-${display.textContent}`
+                firstNumber = display.textContent;
+            }
+            else if (button.id == "plusminusbutton" && firstNumber != ""){
+                display.textContent = `-${display.textContent}`
+                secondNumber = display.textContent;
+            }
         }
-        else if (button.id == "plusminusbutton" && secondNumber == ""){
-            display.textContent = `-${display.textContent}`
-            firstNumber = display.textContent;
-        }
-        else if (button.id == "plusminusbutton" && firstNumber != ""){
-            display.textContent = `-${display.textContent}`
-            secondNumber = display.textContent;
-        }
-        
+
         //percent button
         if (button.id == "percentbutton" && secondNumber == "") {
             display.textContent = percentage(Number(display.textContent))
@@ -251,6 +250,7 @@ for (let button of specialButtons) {
             display.textContent = percentage(Number(display.textContent))
             secondNumber = display.textContent;
         }
+        
     });
     
 
