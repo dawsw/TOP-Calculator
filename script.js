@@ -105,13 +105,14 @@ function percentage(a) {
 //operator buttons
 for (let button of operatorButtons) {
     button.addEventListener("click", () => {
+        console.log("firstnumber:" + firstNumber, "operator:" + selectedOperator, "secondnumber:" + secondNumber)
         //if no first number, set it to 0 & set selectedOperator
         if (firstNumber == "") {
-            firstNumber = 0;
+            firstNumber = "0";
             selectedOperator = button.textContent;
         }
       
-        else if ((firstNumber != "" && secondNumber == "") || selectedOperator != "") {
+        else if ((firstNumber != "" && secondNumber == "")) {
             selectedOperator = button.textContent;
             secondNumber = "";
         }
@@ -124,12 +125,10 @@ for (let button of operatorButtons) {
         //if there is already a white button, change it back to orange if another is pressed
         for (let button of operatorButtons) {
             if (button.style.backgroundColor == "white") {
-                button.style.backgroundColor = "rgb(155, 103, 6)";
-                button.style.color = "white";
+                revertAllOperatorColor(operatorButtons);
             }
         }
 
-        console.log(firstNumber, selectedOperator. secondNumber)
         //for operator color change
         button.style.color = "orange";
         button.style.backgroundColor = "white";
