@@ -120,6 +120,7 @@ for (let button of operatorButtons) {
             display.textContent = operate(selectedOperator, firstNumber, secondNumber);
             firstNumber = operate(selectedOperator, firstNumber, secondNumber);
             selectedOperator = button.textContent;
+            secondNumber = "";
         }
 
         //if there is already a white button, change it back to orange if another is pressed
@@ -161,6 +162,7 @@ for (let button of numberButtons) {
     else if (display.textContent == "-0" && button.textContent != ".") {
         display.textContent = "-";
     }
+
     if (display.textContent.length < 12) {
         //add button text value to first number if no selectedOperator
         if (selectedOperator == "") {
@@ -199,9 +201,10 @@ equalButton.addEventListener("click", () => {
     else if (firstNumber != "" && selectedOperator != "" && secondNumber != "") {
         display.textContent = operate(selectedOperator, firstNumber, secondNumber);
         firstNumber = operate(selectedOperator, firstNumber, secondNumber);
+        secondNumber = "";
     }
 
-    console.log(firstNumber, selectedOperator, secondNumber)
+    revertAllOperatorColor(operatorButtons);
 })
 
 equalButton.addEventListener("mousedown", () => {
