@@ -6,7 +6,10 @@ Welcome to my Calculator App, a project from The Odin Project. This project is a
 
 This Calculator App is a basic calculator with essential functionalities such as addition, subtraction, multiplication, and division. It features a clean and intuitive interface that makes it easy to perform calculations directly from your browser.
 
-### Technologies:
+### Preview:
+![screenshot](calculator-screenshot.png)
+
+#### Technologies:
 - JavaScript
 - HTML
 - CSS
